@@ -1,3 +1,4 @@
 reactjs/node_modules/*
 nodejs/node_modules/*
 nodejs/.env
+reactjs/.env

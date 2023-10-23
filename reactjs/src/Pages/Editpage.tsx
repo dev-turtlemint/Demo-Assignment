@@ -4,6 +4,8 @@ import { useNavigate } from "react-router-dom";
 import "../App.css";
 import Sidebar from "./Sidebar";
 
+const BASE_URL = process.env.BASE_URL;
+
 
 function Editpage() {
     const [loading, setLoading] = useState(false);
@@ -58,7 +60,7 @@ function Editpage() {
       const handleSubmitDetails = async (e: any) => {
         e.preventDefault();
     
-        const req = await fetch("http://localhost:1337/api/add", {
+        const req = await fetch(`${BASE_URL}/api/add`, {
             method: "POST",
             headers: {
             "Content-Type": "application/json",
@@ -77,7 +79,7 @@ function Editpage() {
       };
 
       const getData = async () => {
-        const req = await fetch("http://localhost:1337/api/search", {
+        const req = await fetch(`${BASE_URL}/api/search`, {
             method: "GET",
             headers: {
             "Content-Type": "application/json",
