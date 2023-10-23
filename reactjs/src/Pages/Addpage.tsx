@@ -8,42 +8,42 @@ import Sidebar from "./Sidebar";
 function Addpage() {
   const [loading, setLoading] = useState(true);
 
-  const [data, setData] = useState({
-    id: '',
-    name: '',
-    location: '',
-    age: '',
-    sex: '',
-    pincode: '',
-    address: '',
-    prescription: '',
-    dose: '',
-    visit_date: '',
-    next_visit: '',
-    phy_id: '',
-    phy_name: '',
-    phone: '',
-    bill: ''
-  })
+//   const [data, setData] = useState({
+//     id: '',
+//     name: '',
+//     location: '',
+//     age: '',
+//     sex: '',
+//     pincode: '',
+//     address: '',
+//     prescription: '',
+//     dose: '',
+//     visit_date: '',
+//     next_visit: '',
+//     phy_id: '',
+//     phy_name: '',
+//     phone: '',
+//     bill: ''
+//   })
 
 //   For testing purposes
-//   const [data, setData] = useState({
-//     id: '1',
-//     name: 'Dev',
-//     location: 'Goa',
-//     age: '25',
-//     sex: 'Male',
-//     pincode: '403110',
-//     address: 'A 303 Casa Amora',
-//     prescription: '1 Pizza a day',
-//     dose: 'once a day',
-//     visit_date: '10/10/2023',
-//     next_visit: '10/11/2023',
-//     phy_id: '132334',
-//     phy_name: 'Rishabh Singh',
-//     phone: '9373869815',
-//     bill: '2000'
-//   })
+  const [data, setData] = useState({
+    id: '1',
+    name: 'Dev',
+    location: 'Goa',
+    age: '25',
+    sex: 'Male',
+    pincode: '403110',
+    address: 'A 303 Casa Amora',
+    prescription: '1 Pizza a day',
+    dose: 'once a day',
+    visit_date: '10/10/2023',
+    next_visit: '10/11/2023',
+    phy_id: '132334',
+    phy_name: 'Rishabh Singh',
+    phone: '9373869815',
+    bill: '2000'
+  })
 
   const handleChange = (key: any, value: any ) => {
     setData((prevData) => ({

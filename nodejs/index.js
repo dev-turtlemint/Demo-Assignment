@@ -55,7 +55,7 @@ app.post("/api/add", async (req, res) => {
     const sheet = doc.sheetsByIndex[0]; // or use `doc.sheetsById[id]` or `doc.sheetsByTitle[title]`
 
     let rows = await sheet.getRows();
-    maxid = 1
+    maxid = 1.0
     for (let index = 0; index < rows.length; index++) {
         const row = rows[index];
         // console.log(rows[index], 'working')
@@ -69,14 +69,15 @@ app.post("/api/add", async (req, res) => {
 
     for (let index = 0; index < rows.length; index++) {
         const row = rows[index];
-        if(row._rawData[0] > maxid){
-            maxid = id
+        if(Number(row._rawData[0]) > maxid){
+            console.log(row._rawData[0], maxid, id)
+            maxid = Number(row._rawData[0])
         }
     };
 
 
     const addnewrow = await sheet.addRow({
-            id: maxid + 1,
+            id: (maxid + 1.0),
             name: name,
             location: location,
             age: age,
@@ -119,7 +120,7 @@ app.get("/api/search", async (req, res) => {
     for (let index = 0; index < rows.length; index++) {
         const row = rows[index];
         for (const value of row._rawData) {
-            if (searchtext == value) {
+            if (value.includes(searchtext)) {
                 for (let i = 0; i < row._rawData.length; i++) {
                     finalans[row._worksheet._headerValues[i]] = row._rawData[i];
                 }
