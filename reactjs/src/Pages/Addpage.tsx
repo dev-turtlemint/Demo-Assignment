@@ -5,7 +5,7 @@ import Sidebar from "./Sidebar";
 
 // import jwt from "jsonwebtoken";
 
-const BASE_URL = process.env.BASE_URL;
+const REACT_APP_BASE_URL = process.env.REACT_APP_BASE_URL;
 
 function Addpage() {
   const [loading, setLoading] = useState(true);
@@ -60,7 +60,7 @@ function Addpage() {
     e.preventDefault();
     console.log(data);
 
-    const req = await fetch(`${BASE_URL}/api/add`, {
+    const req = await fetch(`${REACT_APP_BASE_URL}/api/add`, {
         
         method: "POST",
         headers: {
