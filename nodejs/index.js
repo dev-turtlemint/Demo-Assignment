@@ -72,7 +72,6 @@ app.post("/api/add", async (req, res) => {
     for (let index = 0; index < rows.length; index++) {
         const row = rows[index];
         if(Number(row._rawData[0]) > maxid){
-            console.log(row._rawData[0], maxid, id)
             maxid = Number(row._rawData[0])
         }
     };
