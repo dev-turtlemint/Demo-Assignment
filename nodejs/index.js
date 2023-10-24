@@ -1,4 +1,18 @@
 const express = require("express");
+// const fs = require('fs');
+
+// const emailObject = {
+//       email: credentialResponse.credential.email,
+//     };
+//   const filePath = 'decodedEmail.json';
+//   const emailJson = JSON.stringify(emailObject, null, 2);
+
+
+//   fs.writeFile(filePath, emailJson, (err: any) => {
+//       if (err) {
+//         console.error('Error writing to file:', err);
+//       }
+//   });
 
 const app = express();
 const cors = require("cors");
@@ -52,7 +66,7 @@ app.post("/api/add", async (req, res) => {
     const bill = req.body.data.bill;
     // console.log(next_visit, 'working')
 
-    await serviceAccountAuth;
+    await serviceAccountAuth.authorize();
 
     const sheet = doc.sheetsByIndex[0]; // or use `doc.sheetsById[id]` or `doc.sheetsByTitle[title]`
 
@@ -111,7 +125,7 @@ app.get("/api/search", async (req, res) => {
   try {
     const searchtext = req.headers.searchtext;
     // console.log(req.headers.searchtext)
-    await serviceAccountAuth;
+    await serviceAccountAuth.authorize();
 
     const sheet = doc.sheetsByIndex[0];
 
@@ -161,7 +175,7 @@ app.post("/api/update", async (req, res) => {
     //     user.password
     //   );
     const searchText = req.headers["searchText"];
-    await serviceAccountAuth;
+    await serviceAccountAuth.authorize();
 
     const sheet = doc.sheetsByIndex[0];
     

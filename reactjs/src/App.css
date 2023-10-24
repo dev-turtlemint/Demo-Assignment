@@ -46,6 +46,14 @@
   left: 13vw;
 }
 
+.bold{
+  font-weight: bold;
+}
+
+.pink{
+  color: pink;
+}
+
 /*  */
 
 .App {
