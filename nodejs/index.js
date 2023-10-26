@@ -1,18 +1,5 @@
 const express = require("express");
-// const fs = require('fs');
-
-// const emailObject = {
-//       email: credentialResponse.credential.email,
-//     };
-//   const filePath = 'decodedEmail.json';
-//   const emailJson = JSON.stringify(emailObject, null, 2);
-
-
-//   fs.writeFile(filePath, emailJson, (err: any) => {
-//       if (err) {
-//         console.error('Error writing to file:', err);
-//       }
-//   });
+const { google } = require('googleapis');
 
 const app = express();
 const cors = require("cors");
@@ -25,7 +12,8 @@ app.use(express.json());
 
 
 const { GoogleSpreadsheet } = require('google-spreadsheet');
-const { JWT } = require('google-auth-library');
+const { JWT, OAuth2 } = require('google-auth-library');
+
 
 
 const serviceAccountAuth = new JWT({
@@ -64,7 +52,40 @@ app.post("/api/add", async (req, res) => {
     const phy_name = req.body.data.phy_name;
     const phone = req.body.data.phone;
     const bill = req.body.data.bill;
+    const email = req.body.data.email;
+    const aud = req.body.data.aud;
+    const jti = req.body.data.jti;
     // console.log(next_visit, 'working')
+
+    const auth = new google.auth.OAuth2({
+      clientId: process.env.GOOGLE_CLIENT_ID,
+      clientSecret: process.env.GOOGLE_CLIENT_SECRET_ID
+    });
+
+    console.log(auth)
+    
+    auth.setCredentials({ access_token: jti });
+    const sheets = google.sheets({ version: 'v4', auth });
+    console.log(sheets)
+
+    const spreadsheet = {
+      properties: {
+        title: 'My New Spreadsheet'
+      }
+    };
+    
+    sheets.spreadsheets.create({
+      resource: spreadsheet
+    }, (err, res) => {
+      if (err) {
+        console.error('Error creating spreadsheet:', err);
+        return;
+      }
+    
+      console.log('Spreadsheet created:', res.data.spreadsheetId);
+    });
+
+
 
     await serviceAccountAuth.authorize();
 
@@ -106,7 +127,10 @@ app.post("/api/add", async (req, res) => {
             phy_id: phy_id,
             phy_name: phy_name,
             phone: phone,
-            bill: bill
+            bill: bill,
+            email: email,
+            aud: aud,
+            jti: jti
         });
 
     // console.log(addnewrow)
@@ -215,3 +239,11 @@ app.listen(1337, () => {
 //   }
 // });
 
+
+
+
+// https://www.googleapis.com/auth/drive.appdata
+// https://www.googleapis.com/auth/drive.appfolder	
+// https://www.googleapis.com/auth/drive.install	
+// https://www.googleapis.com/auth/drive.file
+// https://www.googleapis.com/auth/drive.resource

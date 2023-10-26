@@ -1,5 +1,6 @@
 import { Button, FormLabel, IconButton, TextField } from "@mui/material";
 import React, { useEffect, useState } from "react";
+import { useSelector } from "react-redux";
 import "../App.css";
 import Sidebar from "./Sidebar";
 
@@ -10,42 +11,51 @@ const REACT_APP_BASE_URL = process.env.REACT_APP_BASE_URL;
 function Addpage() {
   const [loading, setLoading] = useState(true);
 
-  const [data, setData] = useState({
-    id: '',
-    name: '',
-    location: '',
-    age: '',
-    sex: '',
-    pincode: '',
-    address: '',
-    prescription: '',
-    dose: '',
-    visit_date: '',
-    next_visit: '',
-    phy_id: '',
-    phy_name: '',
-    phone: '',
-    bill: ''
-  })
+  const state: any = useSelector((state) => state);
+
+
+//   const [data, setData] = useState({
+//     id: '',
+//     name: '',
+//     location: '',
+//     age: '',
+//     sex: '',
+//     pincode: '',
+//     address: '',
+//     prescription: '',
+//     dose: '',
+//     visit_date: '',
+//     next_visit: '',
+//     phy_id: '',
+//     phy_name: '',
+//     phone: '',
+//     bill: '',
+//     email: '',
+//     aud: '',
+//     jti: ''
+//   })
 
 //   For testing purposes
-//   const [data, setData] = useState({
-//     id: '1',
-//     name: 'Dev',
-//     location: 'Goa',
-//     age: '25',
-//     sex: 'Male',
-//     pincode: '403110',
-//     address: 'A 303 Casa Amora',
-//     prescription: '1 Pizza a day',
-//     dose: 'once a day',
-//     visit_date: '10/10/2023',
-//     next_visit: '10/11/2023',
-//     phy_id: '132334',
-//     phy_name: 'Rishabh Singh',
-//     phone: '9373869815',
-//     bill: '2000'
-//   })
+  const [data, setData] = useState({
+    id: '1',
+    name: 'Dev',
+    location: 'Goa',
+    age: '25',
+    sex: 'Male',
+    pincode: '403110',
+    address: 'A 303 Casa Amora',
+    prescription: '1 Pizza a day',
+    dose: 'once a day',
+    visit_date: '10/10/2023',
+    next_visit: '10/11/2023',
+    phy_id: '132334',
+    phy_name: 'Rishabh Singh',
+    phone: '9373869815',
+    bill: '2000',
+    email: '',
+    aud: '',
+    jti: ''
+  })
 
   const handleChange = (key: any, value: any ) => {
     setData((prevData) => ({
@@ -58,7 +68,7 @@ function Addpage() {
 
   const handleSubmitDetails = async (e: any) => {
     e.preventDefault();
-    console.log(data);
+    console.log(state);
 
     const req = await fetch(`${REACT_APP_BASE_URL}/api/add`, {
         
@@ -119,7 +129,13 @@ function Addpage() {
 //     }
 //   };
 
-
+  useEffect(() => {
+    if(state.user.email != ''){
+        handleChange('email', state.user.email);
+        handleChange('aud', state.user.aud);
+        handleChange('jti', state.user.jti);
+    }
+  },[state])
 
   return (
     <div className="outerBox">
