@@ -3,10 +3,33 @@ import React, { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import "../App.css";
 import Sidebar from "./Sidebar";
+import DatePicker  from 'react-datepicker';
+import 'react-datepicker/dist/react-datepicker.css'
 
 // import jwt from "jsonwebtoken";
 
 const REACT_APP_BASE_URL = process.env.REACT_APP_BASE_URL;
+
+interface dateType{
+    id: string,
+    name: string,
+    location: string,
+    age: string,
+    sex: string,
+    pincode: string,
+    address: string,
+    prescription: string,
+    dose: string,
+    visit_date: Date,
+    next_visit: Date,
+    phy_id: string,
+    phy_name: string,
+    phone: string,
+    bill: string,
+    email: string,
+    aud: string,
+    jti: string
+}
 
 function Addpage() {
   const [loading, setLoading] = useState(true);
@@ -14,7 +37,7 @@ function Addpage() {
   const state: any = useSelector((state) => state);
 
 
-//   const [data, setData] = useState({
+//   const [data, setData] = useState<dateType>({
 //     id: '',
 //     name: '',
 //     location: '',
@@ -24,8 +47,8 @@ function Addpage() {
 //     address: '',
 //     prescription: '',
 //     dose: '',
-//     visit_date: '',
-//     next_visit: '',
+//     visit_date: new Date,
+//     next_visit: new Date,
 //     phy_id: '',
 //     phy_name: '',
 //     phone: '',
@@ -36,7 +59,7 @@ function Addpage() {
 //   })
 
 //   For testing purposes
-  const [data, setData] = useState({
+  const [data, setData] = useState<dateType>({
     id: '1',
     name: 'Dev',
     location: 'Goa',
@@ -46,8 +69,8 @@ function Addpage() {
     address: 'A 303 Casa Amora',
     prescription: '1 Pizza a day',
     dose: 'once a day',
-    visit_date: '10/10/2023',
-    next_visit: '10/11/2023',
+    visit_date: new Date,
+    next_visit: new Date,
     phy_id: '132334',
     phy_name: 'Rishabh Singh',
     phone: '9373869815',
@@ -56,6 +79,9 @@ function Addpage() {
     aud: '',
     jti: ''
   })
+
+  const [startDate, setStartDate] = useState(data.next_visit);
+
 
   const handleChange = (key: any, value: any ) => {
     setData((prevData) => ({
@@ -226,23 +252,24 @@ function Addpage() {
                     <div className="inputrow">
                         <div className="inputgroup">
                             <FormLabel>Visit Date</FormLabel>
-                            <TextField
+                            {/* <TextField
                             value={data.visit_date}
                             onChange={(e) => handleChange('visit_date', e.target.value)}
-                            >
-                            <IconButton
-                                aria-label="Date"
-                                edge="end"
-                                />
+                            > 
                             </TextField>
+                            */}
+                            <DatePicker selected={data.visit_date} onChange={(e) => handleChange('visit_date', e?.getDate)} />
                         </div>
                         <div className="inputgroup">
                             <FormLabel>Next Visit</FormLabel>
-                            <TextField 
-                            value={data.next_visit}
-                            onChange={(e) => handleChange('next_visit', e.target.value)}
-                            />
+                            {/* <TextField 
+                            // value={data.next_visit}
+                            // onChange={(e) => handleChange('next_visit', e.target.value)}
+                            >
+                            </TextField> */}
+                            <DatePicker selected={data.next_visit} onChange={(e) => handleChange('next_visit', e?.getDate)} />
                         </div>
+
                     </div>
                     <hr style={{color: "lightgray", backgroundColor: "gray", border: "none", height: "5px", marginTop: "20px", marginRight: "50px"}}/>
 
